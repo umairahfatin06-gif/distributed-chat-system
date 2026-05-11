@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TechCom Nexus</title>
+    <meta charset="UTF-8">
+    <script src="/socket.io/socket.io.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #c7e9f1, #fcd5ce);
+        }
+        /* Add this to your existing style section */
+.system-message {
+    max-width: 100% !important;
+    text-align: center;
+    font-style: italic;
+    opacity: 0.8;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin: 2px auto;
+    animation: fadeIn 0.3s ease;
+}
+
+        .header {
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            color: #1e293b;
+        }
+
+        .container {
+            display: flex;
+            height: 90vh;
+            margin: 0 30px 30px 30px;
+            gap: 20px;
+        }
+
+        .chat-section {
+            flex: 3;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .users-section {
+            flex: 1;
+            background: linear-gradient(180deg, #fff1c1, #ffd6a5);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        #messages {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 20px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 16px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .message {
+            max-width: 60%;
+            padding: 10px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+            animation: fadeIn 0.25s ease;
+        }
+
+        .left {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            align-self: flex-start;
+        }
+
+        .right {
+            background: linear-gradient(135deg, #ffb4a2, #e5989b);
+            align-self: flex-end;
+            color: white;
+        }
+
+        .username {
+            font-weight: 600;
+            font-size: 11px;
+            margin-bottom: 2px;
+            opacity: 0.85;
+        }
+
+        .timestamp {
+            font-size: 9px;
+            opacity: 0.5;
+            margin-left: 6px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            align-items: center;
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        #username {
+            max-width: 150px;
+        }
+
+        #messageInput {
+            flex: 1;
+        }
+
+        button {
+            background: linear-gradient(135deg, #90dbf4, #ffafcc);
+            border: none;
+            padding: 10px 16px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 8px;
+            margin-bottom: 8px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+        }
+
+        .typing {
+            font-size: 12px;
+            font-style: italic;
+            margin-top: 5px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+   ✨ TechCom Nexus – Distributed Communication Platform ✨
+</div>
+
+<div class="container">
+
+    <div class="chat-section">
+
+        <div id="messages">
+            <div style="opacity:0.5; font-size:14px;">
+                 Start the conversation ✨
+            </div>
+        </div>
+
+        <div id="typingIndicator" class="typing"></div>
+
+        <div class="input-row">
+            <input type="text" id="username" placeholder="Your name">
+            <input type="text" id="messageInput" placeholder="Type your message">
+            <button id="sendButton">Send</button>
+        </div>
+
+    </div>
+
+    <div class="users-section">
+        <h3>Connected Users</h3>
+        <ul id="userList"></ul>
+    </div>
+
+</div>
+
+<script src="client.js"></script>
+
+</body>
+</html>
+
